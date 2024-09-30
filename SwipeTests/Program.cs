@@ -13,9 +13,26 @@ TouchActionTest();
 
 void TouchActionTest()
 {
-    new TouchAction(_driver).LongPress(300,300).MoveTo(600,600).Release().Perform();
+    int lastx = 100;
+    int lasty = 500;
+    Random r = new Random();
+    for(int i = 0; i < 20; i++)
+    {
+        int nextx = lastx + r.Next(0,50);
+        int nexty = lasty + r.Next(-75, 75);
+        do
+        {
+            nexty = lasty + r.Next(-50, 50);
+        } while (nexty < 400 || nexty > 600);
+        
+        new TouchAction(_driver).LongPress(lastx, lasty).MoveTo(nextx, nexty).Release().Perform();
+        lasty = nexty;
+        lastx = nextx;
+    }
 
-    new TouchAction(_driver).LongPress(600, 600).MoveTo(600, 900).Release().Perform();
+    //new TouchAction(_driver).LongPress(100, 500).MoveTo(600,600).Release().Perform();
+
+    //new TouchAction(_driver).LongPress(600, 600).MoveTo(600, 900).Release().Perform();
     Thread.Sleep(1000);
 }
 
